@@ -23,5 +23,6 @@ int _printf(const char *format, ...)
 		index++;
 	}
 
+
 	return (0);
 }
