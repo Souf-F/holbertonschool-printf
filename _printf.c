@@ -20,9 +20,20 @@ int _printf(const char *format, ...)
 
 	while (format[index] != '\0')
 	{
+		if (format[index] != '%')
+		{
+			write(1, &format[index], 1);
+			count++;
+		}
+		else if (format[index + 1] == '%')
+		{
+			write(1, &format[index], 1);
+			count++;
+			index++;
+		}
+
 		index++;
 	}
-
-
-	return (0);
+	va_end(args);
+	return (count);
 }
