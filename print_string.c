@@ -9,19 +9,19 @@
 int print_string(char *str)
 {
 	int index;
-	int count;
 
 	if (!str)
+	{
 		str = "(null)";
-
+		write(1, str, 6);
+		return (6);
+	}
 	index = 0;
-	count = 0;
 
 	while (str[index] != '\0')
 	{
 		write(1, &str[index], 1);
-		count++;
 		index++;
 	}
-	return (count);
+	return (index);
 }

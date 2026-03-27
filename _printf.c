@@ -1,6 +1,5 @@
 #include "main.h"
 #include <unistd.h>
-
 /**
  * _printf - produces output according to a format
  * @format: character string with directives
