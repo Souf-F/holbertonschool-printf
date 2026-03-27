@@ -3,13 +3,16 @@
 /**
  * print_string - prints a string
  * @str: string to print
- *
  * Return: number of characters printed
+ *
  */
 int print_string(char *str)
 {
 	int index;
 	int count;
+
+	if (!str)
+		str = "(null)";
 
 	index = 0;
 	count = 0;
