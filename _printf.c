@@ -27,6 +27,7 @@ int _printf(const char *format, ...)
 			/* caractère normal : on l'écrit directement sur stdout */
 			write(1, &format[index], 1);
 			count++;
+			index++;
 		}
 		else if (format[index + 1] == '%')
 		{
