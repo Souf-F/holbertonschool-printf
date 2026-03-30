@@ -1,0 +1,40 @@
+.TH _PRINTF 3 "March 2026" "Holberton School" "Custom Library Functions"
+
+.SH NAME
+_printf \- formatted output to stdout
+
+.SH SYNOPSIS
+.B #include "main.h"
+.PP
+.B int _printf(const char *\fIformat\fR, ...);
+
+.SH DESCRIPTION
+_printf writes formatted output to the standard output stream.
+The format string contains ordinary characters, written unchanged, and conversion specifiers that fetch and format arguments.
+
+.SS Conversion Specifiers
+.TP
+.B %c
+Prints a single character.
+.TP
+.B %s
+Prints a string. If NULL is passed, prints (null).
+.TP
+.B %%
+Prints a literal percent sign.
+
+.SH RETURN VALUE
+The number of characters printed, excluding the null byte.
+
+.SH EXAMPLES
+.PP
+_printf("Hello %s\\n", "world");
+.PP
+Output: Hello world
+.PP
+_printf("Char: %c\\n", 'A');
+.PP
+Output: Char: A
+
+.SH AUTHORS
+Written by Souf-F.
