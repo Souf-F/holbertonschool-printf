@@ -1,86 +1,97 @@
 # _printf
 
-Custom implementation of the C standard library `printf` function.
-
-## Description
-
-This project is a simplified version of `printf` that handles specific conversion specifiers. It was built as part of the Holberton School curriculum to deepen our understanding of variadic functions, string parsing, and formatted output in C.
-
-The function writes output to `stdout` and returns the number of characters printed (excluding the null byte).
-
-**Prototype:**
-
-```c
-int _printf(const char *format, ...);
-```
-
-## Supported conversion specifiers
-
-| Specifier | Description | Example |
-|-----------|-------------|---------|
-| `%c` | Prints a single character | `_printf("%c", 'H')` → `H` |
-| `%s` | Prints a string | `_printf("%s", "hello")` → `hello` |
-| `%%` | Prints a literal `%` | `_printf("100%%")` → `100%` |
+Recréation de la fonction `printf` de la librairie standard C. Projet réalisé dans le cadre de la formation Holberton School.
 
 ## Compilation
 
 ```bash
-gcc -Wall -Werror -Wextra -pedantic -std=gnu89 -Wno-format *.c
+gcc -Wall -Wextra -Werror -pedantic -std=gnu89 -Wno-format *.c
 ```
 
-## Usage
+## Requirements
+
+- Ubuntu 20.04 LTS
+- GCC
+- Git
+- Style Betty
+
+## Spécificateurs gérés
+
+- `%c` — affiche un caractère
+- `%s` — affiche une chaîne (affiche `(null)` si NULL)
+- `%%` — affiche un `%` littéral
+
+## Exemple
 
 ```c
 #include "main.h"
 
 int main(void)
 {
-    _printf("Character:[%c]\n", 'H');
-    _printf("String:[%s]\n", "I am a string !");
-    _printf("Percent:[%%]\n");
-
-    int len = _printf("Hello %s\n", "world");
-    _printf("Length: %d\n", len);
+    _printf("Hello %s\n", "world");
+    _printf("Char: %c\n", 'A');
+    _printf("Percent: %%\n");
     return (0);
 }
+```
+
+```
+Hello world
+Char: A
+Percent: %
+```
+
+## Man page
+
+```bash
+man ./man_3_printf
+```
+
+## Testing
+
+```bash
+gcc -Wall -Wextra -Werror -pedantic -std=gnu89 -Wno-format *.c -o printf_test
+./printf_test
+```
+
+Vérifier les fuites mémoire :
+
+```bash
+valgrind --leak-check=full --track-origins=yes ./printf_test
 ```
 
 ## Flowchart
 
 ```mermaid
-flowchart TD
+---
+config:
+  theme: neutral
+  look: classic
+---
+flowchart TB
     A["Appel de _printf()"] --> B["Lire la chaîne de format"]
     B --> C{"Caractère suivant ?"}
-    C -->|"Caractère normal"| D["Écrire avec write()"]
-    C -->|"% trouvé"| E{"Caractère après le % ?"}
-    C -->|"Fin de chaîne"| H["Retourner le compteur"]
-    E -->|"%%"| D2["Écrire un seul %"]
-    E -->|"%c"| G1["Récupérer char via va_arg"]
-    E -->|"%s"| G2["Récupérer string via va_arg"]
-    D2 --> F["Incrémenter le compteur"]
-    G1 --> F
-    G2 --> F
-    D --> F
-    F --> B
-    H --> I["Retourner le nombre de caractères écrits"]
+    C -- Caractère normal --> D["Afficher tel quel"]
+    C -- % trouvé --> E{"Caractère après le % ?"}
+    C -- Fin de chaîne --> H["Écrire dans stdout"]
+    E -- %% --> D2["Afficher un seul %"]
+    E -- %c --> G4["Insérer le caractère"]
+    E -- %s --> G2["Insérer la chaîne"]
+    D2 --> B
+    G4 --> D3["Ajouter au résultat"]
+    G2 --> D3
+    D --> B
+    D3 --> B
+    H --> I["Retourner le nombre de caractères affichés"]
 ```
 
-## Files
+## Fichiers
 
-| File | Description |
-|------|-------------|
-| `main.h` | Header file with function prototypes and include guards |
-| `_printf.c` | Core function: parses the format string and dispatches to handlers |
-| `functions.c` | Helper functions for each conversion specifier |
+- `_printf.c` — fonction principale
+- `print_char.c` — gère `%c`
+- `print_string.c` — gère `%s`
+- `main.h` — prototypes
 
-## Requirements
+## Auteur
 
-- Compiled on Ubuntu 20.04 LTS with `gcc`
-- Code follows the Betty coding style
-- No global variables
-- No more than 5 functions per file
-- Allowed functions: `write`, `malloc`, `free`, `va_start`, `va_end`, `va_copy`, `va_arg`
-
-## Authors
-
-- **Soufiane Filali**
+Voir le fichier `AUTHORS`.
