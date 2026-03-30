@@ -48,6 +48,11 @@ int _printf(const char *format, ...)
 			count += print_string(str);
 			index++; /* saute le 's' */
 		}
+		else if (format[index + 1] == 'd' || format[index + 1] == 'i')
+		{
+			count += print_int(va_arg(args, int));
+			index++;
+		}
 		index++; /* avance au caractère suivant dans format */
 	}
 
