@@ -67,7 +67,6 @@ valgrind --leak-check=full --track-origins=yes ./printf_test
 ```
 
 ## Flowchart
-
 ```mermaid
 ---
 config:
@@ -75,24 +74,21 @@ config:
   look: classic
 ---
 flowchart TB
-    A["Appel de _printf()"] --> B["Lire la chaîne de format"]
-    B --> C{"Caractère suivant ?"}
-    C -- Caractère normal --> D["Afficher tel quel"]
-    C -- % trouvé --> E{"Caractère après le % ?"}
-    C -- Fin de chaîne --> H["Écrire dans stdout"]
-    E -- %% --> D2["Afficher un seul %"]
-    E -- %c --> G4["Insérer le caractère"]
-    E -- %s --> G2["Insérer la chaîne"]
-    E -- %d/%i --> G1["Convertir int en texte"]
-    D2 --> B
-    G4 --> D3["Ajouter au résultat"]
-    G2 --> D3
-    G1 --> D3
+    A["Appel de _printf()"] --> B["Lire le caractère suivant"]
+    B --> C{"C'est quoi ce caractère ?"}
+    C -- "Lettre normale" --> D["Afficher tel quel"]
+    C -- "C'est un %" --> E{"Quel spécificateur ?"}
+    C -- "Fin de chaîne \\0" --> F["Retourner le total affiché"]
+    E -- "%%" --> G1["Affiche %"]
+    E -- "%c" --> G2["Affiche char"]
+    E -- "%s" --> G3["Affiche string"]
+    E -- "%d / %i" --> G4["Affiche int"]
     D --> B
-    D3 --> B
-    H --> I["Retourner le nombre de caractères affichés"]
+    G1 --> B
+    G2 --> B
+    G3 --> B
+    G4 --> B
 ```
-
 ## Fichiers
 
 - `_printf.c` — fonction principale
