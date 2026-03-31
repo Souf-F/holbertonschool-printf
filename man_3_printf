@@ -20,6 +20,12 @@ Prints a single character.
 .B %s
 Prints a string. If NULL is passed, prints (null).
 .TP
+.B %d
+Prints a decimal integer.
+.TP
+.B %i
+Prints an integer (same as %d).
+.TP
 .B %%
 Prints a literal percent sign.
 
@@ -35,6 +41,10 @@ Output: Hello world
 _printf("Char: %c\\n", 'A');
 .PP
 Output: Char: A
+.PP
+_printf("Number: %d\\n", 42);
+.PP
+Output: Number: 42
 
 .SH AUTHORS
 Written by Souf-F.
