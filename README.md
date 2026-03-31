@@ -99,4 +99,4 @@ flowchart TB
 
 ## Auteur
 
-[Soufiane FILALI](https://github.com/Souf-F) — Voir le fichier [AUTHORS](AUTHORS.txt) pour plus de détails.
+[Soufiane FILALI](https://github.com/Souf-F) — Voir le fichier [AUTHORS](AUTHOR.txt) pour plus de détails.
