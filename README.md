@@ -19,6 +19,8 @@ gcc -Wall -Wextra -Werror -pedantic -std=gnu89 -Wno-format *.c
 
 - `%c` — affiche un caractère
 - `%s` — affiche une chaîne (affiche `(null)` si NULL)
+- `%d` — affiche un entier décimal
+- `%i` — affiche un entier (identique à %d)
 - `%%` — affiche un `%` littéral
 
 ## Exemple
@@ -30,6 +32,8 @@ int main(void)
 {
     _printf("Hello %s\n", "world");
     _printf("Char: %c\n", 'A');
+    _printf("Number: %d\n", 42);
+    _printf("Negative: %i\n", -7);
     _printf("Percent: %%\n");
     return (0);
 }
@@ -38,6 +42,8 @@ int main(void)
 ```
 Hello world
 Char: A
+Number: 42
+Negative: -7
 Percent: %
 ```
 
@@ -77,9 +83,11 @@ flowchart TB
     E -- %% --> D2["Afficher un seul %"]
     E -- %c --> G4["Insérer le caractère"]
     E -- %s --> G2["Insérer la chaîne"]
+    E -- %d/%i --> G1["Convertir int en texte"]
     D2 --> B
     G4 --> D3["Ajouter au résultat"]
     G2 --> D3
+    G1 --> D3
     D --> B
     D3 --> B
     H --> I["Retourner le nombre de caractères affichés"]
@@ -90,6 +98,7 @@ flowchart TB
 - `_printf.c` — fonction principale
 - `print_char.c` — gère `%c`
 - `print_string.c` — gère `%s`
+- `print_int.c` — gère `%d` et `%i`
 - `main.h` — prototypes
 
 ## Auteur
