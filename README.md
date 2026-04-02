@@ -67,6 +67,7 @@ valgrind --leak-check=full --track-origins=yes ./printf_test
 ```
 
 ## Flowchart
+
 ---
 config:
   theme: neutral
@@ -97,6 +98,7 @@ flowchart TB
     D@{ shape: diamond}
     E@{ shape: diamond}
     I1@{ shape: rect}
+
 ## Fichiers
 
 - `_printf.c` — fonction principale
