@@ -67,7 +67,7 @@ valgrind --leak-check=full --track-origins=yes ./printf_test
 ```
 
 ## Flowchart
-
+```mermaid
 ---
 config:
   theme: neutral
@@ -98,6 +98,7 @@ flowchart TB
     D@{ shape: diamond}
     E@{ shape: diamond}
     I1@{ shape: rect}
+```
 
 ## Fichiers
 
