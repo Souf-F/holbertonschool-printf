@@ -67,28 +67,36 @@ valgrind --leak-check=full --track-origins=yes ./printf_test
 ```
 
 ## Flowchart
-```mermaid
 ---
 config:
   theme: neutral
   look: classic
+  layout: dagre
 ---
 flowchart TB
-    A["Appel de _printf()"] --> B["Lire le caractère suivant"]
-    B --> C{"C'est quoi ce caractère ?"}
-    C -- "Lettre normale" --> D["Afficher tel quel"]
-    C -- "C'est un %" --> E{"Quel spécificateur ?"}
-    C -- "Fin de chaîne \\0" --> F["Retourner le total affiché"]
-    E -- "%%" --> G1["Affiche %"]
-    E -- "%c" --> G2["Affiche char"]
-    E -- "%s" --> G3["Affiche string"]
-    E -- "%d / %i" --> G4["Affiche int"]
-    D --> B
-    G1 --> B
-    G2 --> B
-    G3 --> B
-    G4 --> B
-```
+    B["va_start"] --> C["index = 0, count = 0"]
+    C --> D@{ label: "format[index] == '\\0' ?" }
+    D -- Oui → fin --> END1["va_end"]
+    END1 --> END2["return (-1)"]
+    D -- Non → on continue --> E@{ label: "format[index] == '%' ?" }
+    E -- Non --> F["write(format[index])"]
+    F --> G["count++, index++"]
+    G --> D
+    E -- Oui --> H{"Que vaut format[index + 1] ?"}
+    H -- %% --> I1@{ label: "write '%'" }
+    H -- %c --> I2["print_char(va_arg)"]
+    H -- %s --> I3["print_string(va_arg)"]
+    H -- %d / %i --> I4["print_int(va_arg)"]
+    I1 --> J["count += retour"]
+    I2 --> J
+    I3 --> J
+    I4 --> J
+    J --> K["index += 2"]
+    K --> D
+
+    D@{ shape: diamond}
+    E@{ shape: diamond}
+    I1@{ shape: rect}
 ## Fichiers
 
 - `_printf.c` — fonction principale
